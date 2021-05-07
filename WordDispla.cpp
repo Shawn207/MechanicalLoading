@@ -2,6 +2,7 @@
 Matlab:
 Declare periodStatus, amplitudeStatusand dataStatus registers;
 Define every settings about serial communication
+
 preset();
 while (1) {
     send data repeatedly;
@@ -12,7 +13,7 @@ void preset(void) {//Digital in/out are all in Arduino
     //Send 1 to Digital input 1;// declare sending period;
     //delay(100);
     //while (!(get 1 from Digital output 1));//wait until controller is ready for period
-    while (!(get 1 from Digital output 1));//wait until controller is ready for period, otherwise, repeatedly declaring
+    while (!(get 1 from Digital output 1))//wait until controller is ready for period, otherwise, repeatedly declaring
         send 1 to Digital input 1;// declare sending period
     while (!(get 1 from Digital output 2))//if controller has not get period, send repeatedly 
         Send period continuously;
@@ -56,14 +57,15 @@ void main() {
 
 void preset(void) {// Digital in/out are all in Controller
     //read period
-    while (Digital input 1 == 1);// wait until Matlab declare sending period
+    while (!Digital input 1 == 1);// wait until Matlab declare sending period
     send 1 through Arduino Digital output 1;// say I am ready for reading period
     do {
         read analog value into period;
     }
-    while (period)//repeatedly reading period until it is not 0
+    // some function to determine if read
+    while (!period)//repeatedly reading period until it is not 0
     //send period
-    while (!(get 1 from Digital output 1));//wait until controller is ready for period, otherwise, repeatedly declaring
+    while (!(get 1 from Digital output 1))//wait until controller is ready for period, otherwise, repeatedly declaring
         send 1 to Digital input 1;// declare sending period
     while (!(get 1 from controller Digital output 2))//if controller has not get period, send repeatedly 
         Send period continuously;
@@ -76,7 +78,7 @@ void preset(void) {// Digital in/out are all in Controller
     send 1 through Digital output 2;// say I'm ready to receive amplitude
     do {
         read analog value into amplitude;
-    } while (amplitude)//repeatedly reading amplitude until it is not 0
+    } while (!amplitude)//repeatedly reading amplitude until it is not 0
     //send amplitude
     // here, controller has set digital output 2 as 0 again by itself, because the code moves to next line
     // Next time when it is 1, it means controller has ready for amplitude
@@ -113,12 +115,12 @@ void main() {
 
 void preset(void) {
     //Read period
-    while (Digital input 1 == 1);// wait until Matlab declare sending period
+    while (!Digital input 1 == 1);// wait until Matlab declare sending period
     send 1 through Digital output 1;// say I am ready for reading period
     do {
         read analog value into period;
     }
-    while (period)//repeatedly reading period until it is not 0
+    while (!period)//repeatedly reading period until it is not 0
     send 1 through Digital output 2;// say I've got period, finish transition
     // after next line, the Digital output 2 will clear itself automaticly
     //read amplitude
@@ -130,7 +132,7 @@ void preset(void) {
     do {
         read analog value into amplitude;
     }
-    while (amplitude)//repeatedly reading amplitude until it is not 0
+    while (!amplitude)//repeatedly reading amplitude until it is not 0
     send 1 through Digital output 3;// declare that amplitude has been received.finish transition
 
     //read data
